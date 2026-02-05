@@ -1,11 +1,9 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { PlusCircle, Trash2 } from "lucide-react";
-import { deleteArticle } from "@/app/admin/actions";
+import { PlusCircle } from "lucide-react";
 import { DeleteNewsButton } from "@/components/admin/delete-news-button";
-// Import your new component
+// 1. IMPORT THE NEW FORM COMPONENT
 import { CreateNewsForm } from "@/components/admin/create-form";
 
 export default async function AdminNewsPage() {
@@ -37,8 +35,8 @@ export default async function AdminNewsPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {/* Replaced the raw form with the new Client Component */}
-            <CreateNewsForm />
+            {/* 2. THIS IS THE FIX: Use the component, NOT the <form> tag */}
+            <CreateNewsForm /> 
           </CardContent>
         </Card>
 
@@ -60,7 +58,6 @@ export default async function AdminNewsPage() {
                     </div>
                   </div>
                   
-                  {/* Delete Button */}
                   <DeleteNewsButton id={article.id} title={article.title} />
                   
                 </div>
