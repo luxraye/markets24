@@ -1,11 +1,9 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { ShieldCheck, UserPlus } from "lucide-react";
-import { promoteUserToAdmin } from "@/app/admin/actions";
+// IMPORT THE NEW COMPONENT
+import { PromoteUserForm } from "@/components/admin/promote-user-form";
 
 export default async function AdminUsersPage() {
   const cookieStore = await cookies();
@@ -15,7 +13,6 @@ export default async function AdminUsersPage() {
     { cookies: { get(name: string) { return cookieStore.get(name)?.value; } } }
   );
 
-  // Fetch all assigned roles
   const { data: roles } = await supabase.from("user_roles").select("*");
 
   return (
@@ -35,16 +32,8 @@ export default async function AdminUsersPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <form action={promoteUserToAdmin} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">User Email</Label>
-                <Input id="email" name="email" placeholder="colleague@markets24.bw" required />
-                <p className="text-xs text-muted-foreground">
-                  The user must already have a Markets24 account.
-                </p>
-              </div>
-              <Button type="submit" className="w-full">Promote to Admin</Button>
-            </form>
+            {/* USE THE NEW COMPONENT HERE */}
+            <PromoteUserForm />
           </CardContent>
         </Card>
 
@@ -68,7 +57,7 @@ export default async function AdminUsersPage() {
                 </div>
               ))}
               {(!roles || roles.length === 0) && (
-                <p className="text-sm text-muted-foreground">No admins found (Wait, how are you seeing this?)</p>
+                <p className="text-sm text-muted-foreground">No admins found.</p>
               )}
             </div>
           </CardContent>
