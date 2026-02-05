@@ -1,3 +1,7 @@
+// Force update for Vercel build
+import { createServerClient } from "@supabase/ssr";
+// ... rest of your code
+
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
